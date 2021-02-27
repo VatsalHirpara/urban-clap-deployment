@@ -85,6 +85,19 @@ services:
             - discoveryserver:discoveryserver
         environment:
             - discoveryserver_url=http://discoveryserver:8761/eureka
+    notification:
+        container_name: notification
+        build: ./notification
+        image: vatsal09/notification
+        restart: always
+        ports:
+            - "9191:9191"
+        depends_on:
+            - "discoveryserver"
+        links:
+            - discoveryserver:discoveryserver
+        environment:
+            - discoveryserver_url=http://discoveryserver:8761/eureka
     activemq:
         container_name: activemq
         image: rmohr/activemq
