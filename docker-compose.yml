@@ -27,6 +27,19 @@ services:
             - 8761:8761
         environment:
             - JAEGER_HOST=jaeger
+    apigateway:
+        container_name: apigateway
+        build: ./apigateway
+        image: vatsal09/apigateway
+        restart: always
+        ports:
+            - 9999:9999
+        depends_on:
+            - discoveryserver
+            - jaeger
+        environment:
+            - discoveryserver_url=http://discoveryserver:8761/eureka
+            - JAEGER_HOST=jaeger
     booking:
         container_name: booking
         build: ./booking
@@ -118,17 +131,4 @@ services:
         environment:
             - discoveryserver_url=http://discoveryserver:8761/eureka
             - activemq_url=tcp://activemq:61616?jms.redeliveryPolicy.maximumRedeliveries=1
-            - JAEGER_HOST=jaeger
-    apigateway:
-        container_name: apigateway
-        build: ./apigateway
-        image: vatsal09/apigateway
-        restart: always
-        ports:
-            - 9999:9999
-        depends_on:
-            - discoveryserver
-            - jaeger
-        environment:
-            - discoveryserver_url=http://discoveryserver:8761/eureka
             - JAEGER_HOST=jaeger
