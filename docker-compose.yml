@@ -15,11 +15,10 @@ services:
         container_name: activemq
         image: rmohr/activemq
         ports:
-            - 61616:61616
+            - 9393:61616
             - 8161:8161
     discoveryserver:
         container_name: discoveryserver
-        build: ./discoveryserver
         image: vatsal09/discoveryserver
         depends_on:
             - jaeger
@@ -29,7 +28,6 @@ services:
             - JAEGER_HOST=jaeger
     apigateway:
         container_name: apigateway
-        build: ./apigateway
         image: vatsal09/apigateway
         restart: always
         ports:
@@ -42,7 +40,6 @@ services:
             - JAEGER_HOST=jaeger
     booking:
         container_name: booking
-        build: ./booking
         image: vatsal09/booking
         restart: always
         ports:
@@ -57,7 +54,6 @@ services:
             - JAEGER_HOST=jaeger
     worker:
         container_name: worker
-        build: ./worker
         image: vatsal09/worker
         restart: always
         ports:
@@ -72,7 +68,6 @@ services:
             - JAEGER_HOST=jaeger
     notification:
         container_name: notification
-        build: ./notification
         image: vatsal09/notification
         restart: always
         ports:
@@ -87,7 +82,6 @@ services:
             - JAEGER_HOST=jaeger
     customer:
         container_name: customer
-        build: ./customer
         image: vatsal09/customer
         restart: always
         ports:
@@ -103,7 +97,6 @@ services:
 
     service:
         container_name: service
-        build: ./service
         image: vatsal09/service
         restart: always
         ports:
@@ -119,7 +112,6 @@ services:
 
     payment:
         container_name: payment
-        build: ./payment
         image: vatsal09/payment
         restart: always
         ports:
